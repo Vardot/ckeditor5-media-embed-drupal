@@ -15,6 +15,13 @@ Only what Drupal serves is shipped: `build/`, the `lang/` contexts and `theme/`.
 composer require vardot/ckeditor5-media-embed-drupal
 ```
 
+This package declares **no `require` of its own**. It is a built JavaScript asset,
+not PHP: requiring `drupal/core` here would pull Drupal core and about 130 other
+packages in just to place one file, and it would say nothing useful, because the
+constraint that actually matters is the CKEditor 5 version core bundles — which a
+Composer constraint on `drupal/core` cannot express. That coupling is carried by
+the tag you require, and by the table below.
+
 `drupal/ckeditor_media_embed` loads the plugin from
 `libraries/ckeditor5/plugins/media-embed/build/media-embed.js`, so the consuming project maps
 this package there explicitly:
