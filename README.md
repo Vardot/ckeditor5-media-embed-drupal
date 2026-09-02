@@ -22,19 +22,23 @@ constraint that actually matters is the CKEditor 5 version core bundles — whic
 Composer constraint on `drupal/core` cannot express. That coupling is carried by
 the tag you require, and by the table below.
 
+It works out of the box — **the consuming project adds nothing**.
+
 `drupal/ckeditor_media_embed` loads the plugin from
-`libraries/ckeditor5/plugins/media-embed/build/media-embed.js`, so the consuming project maps
-this package there explicitly:
+`libraries/ckeditor5/plugins/media-embed/build/media-embed.js`, which is a nested directory that
+the usual `web/libraries/{$name}` installer path cannot produce on its own. This package places
+itself there instead, by declaring `composer/installers`' own
+[`extra.installer-name`](https://github.com/composer/installers#custom-install-names):
 
 ```json
 "extra": {
-  "installer-paths": {
-    "web/libraries/ckeditor5/plugins/media-embed": [
-      "vardot/ckeditor5-media-embed-drupal"
-    ]
-  }
+  "installer-name": "ckeditor5/plugins/media-embed"
 }
 ```
+
+That overrides `{$name}` for this package only, so the project keeps the single generic
+`"web/libraries/{$name}": ["type:drupal-library"]` rule it already has, with no extra plugin and no
+per-package path.
 
 ## Versioning — match Drupal core's CKEditor 5
 

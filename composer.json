@@ -27,5 +27,8 @@
   "support": {
     "issues": "https://www.drupal.org/project/issues/ckeditor_media_embed",
     "source": "https://github.com/Vardot/ckeditor5-media-embed-drupal"
+  },
+  "extra": {
+    "installer-name": "ckeditor5/plugins/media-embed"
   }
 }
